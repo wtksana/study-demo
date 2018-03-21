@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * date: 2018/3/14
  * author: wt
@@ -46,7 +48,24 @@ public class HomeController {
 
     @RequestMapping("/login")
     @ResponseBody
-    public Object login(User user) {
-        return userService.login(user);
+    public Object login(User user, HttpSession session) {
+        RespInfo<User> respInfo = userService.login(user);
+        if (respInfo.isSuccess()) {
+            session.setAttribute("user_session", respInfo.getData());
+        }
+        return respInfo;
+    }
+
+
+    @RequestMapping("/getUser")
+    @ResponseBody
+    public Object getUser(Long id) {
+        return userService.getUser(id);
+    }
+
+    @RequestMapping("/getUserList")
+    @ResponseBody
+    public Object getUserList() {
+        return userService.getUserList();
     }
 }
