@@ -1,6 +1,7 @@
 import com.tt.study.demo.DemoApplication;
 import com.tt.study.demo.common.RespInfo;
 import com.tt.study.demo.entity.User;
+import com.tt.study.demo.service.MqProducer.HelloProducer;
 import com.tt.study.demo.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
@@ -20,10 +21,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 @Slf4j
 public class Test1 {
     @Autowired
-    private UserService userService;
+    private HelloProducer helloProducer;
 
     @Test
     public void test1() {
-        RespInfo respInfo = userService.getUser(1L);
+        for (int i = 0; i < 100; i++) {
+            helloProducer.send("hello + " + i);
+        }
+        log.info("send ok");
     }
 }

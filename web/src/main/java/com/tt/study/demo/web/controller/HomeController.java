@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Enumeration;
 
 /**
  * date: 2018/3/14
@@ -23,8 +28,20 @@ public class HomeController {
 
     @RequestMapping("/")
     @ResponseBody
-    public Object index() {
-        return "Hello World";
+    public Object index() throws SocketException {
+        StringBuilder sb = new StringBuilder();
+        sb.append("ip");
+        Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
+        while (networkInterfaces.hasMoreElements()) {
+            Enumeration<InetAddress> inetAddresses = networkInterfaces.nextElement().getInetAddresses();
+            while (inetAddresses.hasMoreElements()) {
+                InetAddress inetAddress = inetAddresses.nextElement();
+                if (inetAddress != null && inetAddress instanceof Inet4Address) {
+                    sb.append(":").append(inetAddress.getHostAddress());
+                }
+            }
+        }
+        return sb.toString();
     }
 
     @RequestMapping("/home")
@@ -68,4 +85,5 @@ public class HomeController {
     public Object getUserList() {
         return userService.getUserList();
     }
+
 }
