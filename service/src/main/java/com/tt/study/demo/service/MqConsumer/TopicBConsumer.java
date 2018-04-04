@@ -6,17 +6,15 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
 /**
- * date: 2018/3/22
+ * date: 2018/3/30
  * author: wt
  */
 @Component
-@RabbitListener(queues = "hello")
+@RabbitListener(queues = "topic.b")
 @Slf4j
-public class HelloConsumer {
-
+public class TopicBConsumer {
     @RabbitHandler
     public void process(String msg) {
-        log.info("mq msg : " + msg);
+        log.info("topic.b msg : {}", msg);
     }
-
 }

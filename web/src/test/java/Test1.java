@@ -26,8 +26,32 @@ public class Test1 {
     @Test
     public void test1() {
         for (int i = 0; i < 100; i++) {
-            helloProducer.send("hello + " + i);
+            helloProducer.sendToStringQueue("hello + " + i);
         }
         log.info("send ok");
+    }
+
+    @Test
+    public void test2() {
+        User user = new User();
+        user.setUsername("haha");
+        user.setPassword("123456");
+        helloProducer.sendToUserQueue(user);
+        helloProducer.sendToStringQueue("haha");
+    }
+
+    @Test
+    public void test3() {
+        helloProducer.sendToFanoutExchange("Fanout Message");
+        log.info("ok");
+    }
+
+    @Test
+    public void test4() {
+        String msg = "topic msg ";
+        helloProducer.sendWithTopicA(msg + "1");
+        helloProducer.sendWithTopicB(msg + "2");
+        helloProducer.sendWithTopicBC(msg + "3");
+        log.info("ok");
     }
 }

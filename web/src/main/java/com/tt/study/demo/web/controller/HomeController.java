@@ -3,6 +3,7 @@ package com.tt.study.demo.web.controller;
 import com.tt.study.demo.common.MyException;
 import com.tt.study.demo.common.RespInfo;
 import com.tt.study.demo.entity.User;
+import com.tt.study.demo.service.MqProducer.HelloProducer;
 import com.tt.study.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,8 @@ public class HomeController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private HelloProducer helloProducer;
 
     @RequestMapping("/")
     @ResponseBody
@@ -86,4 +89,12 @@ public class HomeController {
         return userService.getUserList();
     }
 
+    @RequestMapping("/sendMsg")
+    @ResponseBody
+    public Object sendMsg(String msg) {
+        helloProducer.sendWithTopicA(msg + "1");
+        helloProducer.sendWithTopicB(msg + "2");
+        helloProducer.sendWithTopicBC(msg + "3");
+        return "send ok";
+    }
 }
