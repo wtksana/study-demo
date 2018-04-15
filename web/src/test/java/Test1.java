@@ -22,6 +22,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class Test1 {
     @Autowired
     private HelloProducer helloProducer;
+    @Autowired
+    private UserService userService;
 
     @Test
     public void test1() {
@@ -54,4 +56,15 @@ public class Test1 {
         helloProducer.sendWithTopicBC(msg + "3");
         log.info("ok");
     }
+
+    @Test
+    public void testRegister() throws Exception{
+        User user = new User();
+        user.setUsername("zhangsan10");
+        user.setPassword("123456");
+        userService.register(user);
+        //等待5秒再结束
+        Thread.sleep(5000);
+    }
+
 }

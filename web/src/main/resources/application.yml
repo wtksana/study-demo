@@ -9,13 +9,13 @@ spring:
       enabled: false
   redis:
     host:
-    port: 6380
+    port:
     password:
   rabbitmq:
     addresses:
     port: 5672
-    username:
-    password:
+    username: wt
+    password: 123456
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.tt.study.demo.entity

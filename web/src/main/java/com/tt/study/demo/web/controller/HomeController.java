@@ -59,10 +59,10 @@ public class HomeController {
         throw new MyException("error");
     }
 
-    @RequestMapping("/addUser")
+    @RequestMapping("/register")
     @ResponseBody
-    public Object addUser(User user) {
-        return userService.addUser(user);
+    public Object register(User user) throws Exception {
+        return userService.register(user);
     }
 
 
