@@ -7,6 +7,8 @@
     <artifactId>demo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <modules>
+        <module>dubbo-api</module>
+        <module>dubbo-provider</module>
         <module>common</module>
         <module>model</module>
         <module>dao</module>
@@ -31,10 +33,21 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <dubbo.version>2.6.1</dubbo.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.tt.study</groupId>
+                <artifactId>dubbo-api</artifactId>
+                <version>${demo.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tt.study</groupId>
+                <artifactId>dubbo-provider</artifactId>
+                <version>${demo.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.tt.study</groupId>
                 <artifactId>common</artifactId>

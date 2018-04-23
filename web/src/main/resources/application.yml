@@ -8,11 +8,11 @@ spring:
     favicon:
       enabled: false
   redis:
-    host:
-    port:
-    password:
+    host: 101.132.44.128
+    port: 6380
+    password: wt931201.
   rabbitmq:
-    addresses:
+    addresses: 101.132.44.128
     port: 5672
     username: wt
     password: 123456

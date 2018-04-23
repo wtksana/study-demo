@@ -1,10 +1,12 @@
 package com.tt.study.demo.web.controller;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.tt.study.demo.common.MyException;
 import com.tt.study.demo.common.RespInfo;
 import com.tt.study.demo.entity.User;
 import com.tt.study.demo.service.MqProducer.HelloProducer;
 import com.tt.study.demo.service.UserService;
+import com.tt.study.dubbo.api.facade.DemoFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +30,8 @@ public class HomeController {
     private UserService userService;
     @Autowired
     private HelloProducer helloProducer;
+    @Reference
+    private DemoFacade demoFacade;
 
     @RequestMapping("/")
     @ResponseBody
@@ -39,7 +43,7 @@ public class HomeController {
             Enumeration<InetAddress> inetAddresses = networkInterfaces.nextElement().getInetAddresses();
             while (inetAddresses.hasMoreElements()) {
                 InetAddress inetAddress = inetAddresses.nextElement();
-                if (inetAddress != null && inetAddress instanceof Inet4Address) {
+                if (inetAddress instanceof Inet4Address) {
                     sb.append(":").append(inetAddress.getHostAddress());
                 }
             }
@@ -96,5 +100,11 @@ public class HomeController {
         helloProducer.sendWithTopicB(msg + "2");
         helloProducer.sendWithTopicBC(msg + "3");
         return "send ok";
+    }
+
+    @RequestMapping("/safeAdd")
+    @ResponseBody
+    public Object safeAdd(Integer a, Integer b) {
+        return demoFacade.safeAdd(a, b);
     }
 }
